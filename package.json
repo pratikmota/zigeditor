@@ -1,0 +1,33 @@
+{
+  "name": "zigeditor",
+  "version": "0.0.0",
+  "type": "module",
+  "files": ["dist"],
+  "sideEffects": ["**/*.css"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "dev": "pnpm build && pnpm exec concurrently -k -n lib,demo \"pnpm exec tsup --watch\" \"pnpm --filter example dev\""
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@9.12.3"
+}
