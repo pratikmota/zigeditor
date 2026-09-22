@@ -14,20 +14,24 @@ const artifacts: ZigWasmArtifacts | undefined = wasmBase
 export function App() {
   const [code, setCode] = useState(HELLO_ZIG_SOURCE);
   const [result, setResult] = useState<RunResult | null>(null);
-  const [forceMock] = useState(
-    () => new URLSearchParams(window.location.search).has("mock"),
-  );
+  const [params] = useState(() => new URLSearchParams(window.location.search));
+  const forceMock = params.has("mock");
   const liveArtifacts = forceMock ? undefined : artifacts;
+  const runLabel = params.get("run");
 
   return (
     <main style={{ maxWidth: 720, margin: "24px auto", padding: "0 16px" }}>
       <h1 style={{ fontFamily: "sans-serif", fontSize: 20 }}>ZigEditor</h1>
-      <ZigEditor
-        value={code}
-        onChange={setCode}
-        onRunResult={setResult}
-        artifacts={liveArtifacts}
-      />
+      <div style={{ height: "70vh" }}>
+        <ZigEditor
+          value={code}
+          onChange={setCode}
+          onRunResult={setResult}
+          artifacts={liveArtifacts}
+          showReset={!params.has("noreset")}
+          labels={runLabel ? { run: runLabel } : undefined}
+        />
+      </div>
       <pre
         aria-label="Run result"
         style={{

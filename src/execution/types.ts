@@ -88,6 +88,8 @@ export type ZigEditorProps = {
   matchSources?: string[];
   /** Shown on run results. Defaults to "Zig". */
   compilerLabel?: string;
+  /** Hide the package Reset button so the host can keep its own confirm. */
+  showReset?: boolean;
   labels?: Partial<ZigEditorLabels>;
   onRunResult?: (result: RunResult) => void;
   onStatus?: (status: RunStatus) => void;
