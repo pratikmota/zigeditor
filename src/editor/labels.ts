@@ -16,4 +16,12 @@ export const defaultLabels: ZigEditorLabels = {
   preview: "Preview runner — WASM compiler not connected.",
   loading: "Loading compiler…",
   unavailable: "In-browser compiler is unavailable. Using the preview runner.",
+  new: "New",
+  report: "Report",
+  hint: "Learning sandbox — code stays in this browser. Do not paste tokens or private keys.",
+  output: "Output",
+  ok: "ok",
+  error: "error",
+  empty: "Run the program to see output.",
+  version: "Zig version",
 };

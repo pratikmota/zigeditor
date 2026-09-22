@@ -5,8 +5,11 @@ export type {
   FormatResult,
   RunResult,
   RunStatus,
+  ZigEditorAction,
   ZigEditorLabels,
+  ZigEditorPane,
   ZigEditorProps,
   ZigEditorTheme,
+  ZigEditorVersion,
   ZigWasmArtifacts,
 } from "./execution/types";

@@ -41,6 +41,24 @@ export type FormatResult = {
   durationMs: number;
 };
 
+export type ZigEditorPane = "all" | "editor" | "output";
+
+export type ZigEditorVersion = {
+  id: string;
+  label: string;
+};
+
+/** Extra toolbar button. Use `href` for a link, or `onClick` for a button. */
+export type ZigEditorAction = {
+  label: string;
+  href?: string;
+  onClick?: () => void;
+  /** Open `href` in a new tab. */
+  external?: boolean;
+  /** Defaults to plus. */
+  icon?: "plus" | "flag" | "share";
+};
+
 export type ZigEditorLabels = {
   run: string;
   running: string;
@@ -57,6 +75,14 @@ export type ZigEditorLabels = {
   preview: string;
   loading: string;
   unavailable: string;
+  new: string;
+  report: string;
+  hint: string;
+  output: string;
+  ok: string;
+  error: string;
+  empty: string;
+  version: string;
 };
 
 export interface ExecutionAdapter {
@@ -90,6 +116,25 @@ export type ZigEditorProps = {
   compilerLabel?: string;
   /** Hide the package Reset button so the host can keep its own confirm. */
   showReset?: boolean;
+  showRun?: boolean;
+  /** Hide Format even after the compiler probe succeeds. */
+  showFormat?: boolean;
+  showCopy?: boolean;
+  showClear?: boolean;
+  /** Icon-only Reset, Copy, Format, New, Report, and actions. Run stays labeled. */
+  compact?: boolean;
+  pane?: ZigEditorPane;
+  /** Bordered version label when `versions` is omitted. */
+  versionLabel?: string;
+  versions?: ZigEditorVersion[];
+  version?: string;
+  onVersionChange?: (id: string) => void;
+  newHref?: string;
+  reportHref?: string;
+  /** Extra toolbar buttons, drawn after New and Report. Icon-only when `compact`. */
+  actions?: ZigEditorAction[];
+  /** Small “Powered by ZigEditor” link to the repository. Defaults to true. */
+  showCredit?: boolean;
   labels?: Partial<ZigEditorLabels>;
   onRunResult?: (result: RunResult) => void;
   onStatus?: (status: RunStatus) => void;

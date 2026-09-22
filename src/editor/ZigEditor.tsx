@@ -56,7 +56,21 @@ export function ZigEditor({
   expectedOutput,
   matchSources,
   compilerLabel = "Zig",
+  showRun = true,
+  showFormat = true,
   showReset = true,
+  showCopy = true,
+  showClear = true,
+  compact = false,
+  pane = "all",
+  versionLabel,
+  versions,
+  version,
+  onVersionChange,
+  newHref,
+  reportHref,
+  actions,
+  showCredit = true,
   labels: labelsProp,
   onRunResult,
   onStatus,
@@ -246,20 +260,34 @@ export function ZigEditor({
   const rootClass = className ? `zig-editor ${className}` : "zig-editor";
   const busy = running || formatting;
   const runDisabled = busy || preloadStatus === "loading";
+  const runLabel =
+    preloadStatus === "loading" ? labels.loading : running ? labels.running : labels.run;
 
   return (
-    <div ref={rootRef} className={rootClass}>
+    <div ref={rootRef} className={rootClass} data-pane={pane}>
       <p className="zig-editor-hint">Press Mod-Enter to run. Press Escape to leave the editor.</p>
       <Toolbar
-        runLabel={running ? labels.running : labels.run}
-        formatLabel={formatting ? labels.formatting : labels.format}
-        resetLabel={labels.reset}
-        copyLabel={copied ? labels.copied : labels.copy}
-        showFormat={canFormat}
+        labels={labels}
+        preloadStatus={preloadStatus}
+        showRun={showRun}
+        showFormat={showFormat && canFormat}
         showReset={showReset}
+        showCopy={showCopy}
+        compact={compact}
+        runLabel={runLabel}
+        formatLabel={formatting ? labels.formatting : labels.format}
+        copyLabel={copied ? labels.copied : labels.copy}
+        copied={copied}
+        spinning={running || preloadStatus === "loading"}
         runDisabled={runDisabled}
         formatDisabled={busy}
-        resetDisabled={value === resetValueRef.current}
+        versionLabel={versionLabel}
+        versions={versions}
+        version={version}
+        onVersionChange={onVersionChange}
+        newHref={newHref}
+        reportHref={reportHref}
+        actions={actions}
         onRun={() => void handleRun()}
         onFormat={() => void handleFormat()}
         onReset={() => onChange(resetValueRef.current)}
@@ -281,6 +309,8 @@ export function ZigEditor({
         formatting={formatting}
         result={result}
         notice={notice}
+        showCopy={showCopy}
+        showClear={showClear}
         height={outputHeight}
         collapsed={collapsed}
         onToggleCollapsed={() => setCollapsed((open) => !open)}
@@ -291,7 +321,18 @@ export function ZigEditor({
           setResult(null);
           setNotice(null);
         }}
+        onCopyFailed={() => {
+          setNotice(labels.copyFailed);
+          setCollapsed(false);
+        }}
       />
+      {showCredit ? (
+        <p className="zig-editor-credit">
+          <a href="https://github.com/pratikmota/zigeditor" target="_blank" rel="noopener noreferrer">
+            Powered by ZigEditor
+          </a>
+        </p>
+      ) : null}
     </div>
   );
 }
