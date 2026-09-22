@@ -1,0 +1,17 @@
+.{
+    .name = .ziglab_wasm,
+    .version = "0.1.0",
+    .fingerprint = 0xbfec72406722e559,
+    .minimum_zig_version = "0.16.0",
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "README.md",
+        "NOTICE",
+        "VERSION",
+        "fetch-source.sh",
+        "prepare-source.sh",
+        "patches",
+        "spike",
+    },
+}

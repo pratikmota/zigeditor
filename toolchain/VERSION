@@ -1,0 +1,10 @@
+# Toolchain pin. Changing zigVersion creates .cache/.vendor/dist folders for that version.
+zigVersion=0.16.0
+# Native zig on PATH used to compile zig.wasm (not shipped to browsers).
+hostZig=0.16.0
+sourceUrl=https://ziglang.org/download/0.16.0/zig-0.16.0.tar.xz
+sourceMinisigUrl=https://ziglang.org/download/0.16.0/zig-0.16.0.tar.xz.minisig
+sourceSha256=43186959edc87d5c7a1be7b7d2a25efffd22ce5807c7af99067f86f99641bfdf
+minisignPublicKey=RWSGOq2NVecA2UPNdBUZykf1CCb147pkmdtYxgb3Ti+JO/wCYvhbAb/U
+codebergTag=https://codeberg.org/ziglang/zig/src/tag/0.16.0
+bootstrap=unused

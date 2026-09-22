@@ -1,0 +1,39 @@
+# WASI self_exe_path is void; skip serve/run/test paths that need a real exe path.
+--- a/src/main.zig
++++ b/src/main.zig
+@@ -3736,11 +3736,11 @@
+             try serve(
+                 comp,
+                 &stdin_reader.interface,
+                 &stdout_writer.interface,
+                 test_exec_args.items,
+-                self_exe_path,
++                if (native_os == .wasi) null else self_exe_path,
+                 arg_mode,
+                 all_args,
+                 runtime_args_start,
+                 environ_map,
+             );
+@@ -3763,11 +3763,11 @@
+             try serve(
+                 comp,
+                 &input.interface,
+                 &output.interface,
+                 test_exec_args.items,
+-                self_exe_path,
++                if (native_os == .wasi) null else self_exe_path,
+                 arg_mode,
+                 all_args,
+                 runtime_args_start,
+                 environ_map,
+             );
+@@ -3799,7 +3799,7 @@
+     try comp.makeBinFileExecutable();
+     saveState(comp, incremental);
+ 
+-    if (switch (arg_mode) {
++    if (native_os != .wasi and switch (arg_mode) {
+         .run => true,
+         .zig_test => !test_no_exec,
+         else => false,
+     }) {

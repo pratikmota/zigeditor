@@ -12,8 +12,8 @@ const wasmBase = import.meta.env.VITE_ZIG_WASM;
 const artifacts: ZigWasmArtifacts | undefined = wasmBase
   ? {
       moduleUrl: `${wasmBase}/zig.wasm`,
-      stdUrl: `${wasmBase}/std.tar`,
-      compilerRtUrl: `${wasmBase}/libcompiler_rt.a`,
+      stdUrl: `${wasmBase}/std.tar.gz`,
+      compilerRtUrl: `${wasmBase}/compiler_rt.a`,
     }
   : undefined;
 

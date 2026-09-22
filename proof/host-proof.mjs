@@ -5,7 +5,7 @@
  *   pnpm proof
  *   pnpm proof -- --dist /path/to/dist/0.16.0
  *
- * Default dist is the sibling ZigLab toolchain checkout.
+ * Default dist is toolchain/dist/0.16.0.
  * Missing zig.wasm prints "artifacts missing" and exits 0.
  */
 import fs from "node:fs";
@@ -20,7 +20,7 @@ import { WASM_SOURCE_MAX_BYTES } from "../src/execution/wasm-limits.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "..");
-const defaultDist = path.resolve(repoRoot, "../ziglab/tools/zig-wasm/dist/0.16.0");
+const defaultDist = path.resolve(repoRoot, "toolchain/dist/0.16.0");
 
 function distArg() {
   const flag = process.argv.indexOf("--dist");

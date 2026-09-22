@@ -2,3 +2,9 @@ node_modules
 dist
 .DS_Store
 .next
+toolchain/.cache
+toolchain/.zig-cache
+toolchain/.vendor
+toolchain/zig-out
+toolchain/publish
+examples/vite/public/wasm

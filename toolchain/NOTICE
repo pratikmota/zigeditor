@@ -1,0 +1,56 @@
+ZigEditor WASM toolchain — third-party notices
+==============================================
+
+ZigEditor is an independent community project. It is not affiliated with,
+endorsed by, or sponsored by the Zig Software Foundation. “Zig” and related
+marks belong to their owners.
+
+This folder does not contain copies of zigtools/playground or
+zig-wasm/wasi-zigc. The fetch, patches, and dist layout live in this
+repository (MIT, see the repository LICENSE).
+
+------------------------------------------------------------------------
+1. Official Zig compiler and standard library (MIT)
+
+This toolchain downloads official Zig source (pin in VERSION), applies small
+WASI patches, and may redistribute zig.wasm, lib/, and compiler_rt. Zig is MIT
+licensed. MIT allows use, modification, and redistribution if the copyright
+notice and permission notice are kept. Build copies official LICENSE into
+dist/{version}/LICENSE, and publish copies it next to the hosted files.
+
+Patches under patches/ are modifications of that MIT source; they do not
+change Zig’s license.
+
+The MIT License (Expat)
+
+Copyright (c) Zig contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+Zig language and compiler: https://ziglang.org/
+Official git: https://codeberg.org/ziglang/zig
+Download (signed source): https://ziglang.org/download/
+
+------------------------------------------------------------------------
+2. @bjorn3/browser_wasi_shim (MIT OR Apache-2.0)
+
+The package host uses this library to run WASI guests in the browser. It is
+installed via npm. Do not vendor wasi-zigc.
+
+https://github.com/bjorn3/browser_wasi_shim
