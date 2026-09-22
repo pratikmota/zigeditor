@@ -59,7 +59,7 @@ export function Editor() {
       version={version}
       onVersionChange={setVersion}
       showRun // labeled Run. showRun={false} hides it.
-      showReset // reset icon. showReset={false} hides it.
+      showReset // reset icon. showReset={false} hides it. onReset keeps the button and runs your confirm.
       showCopy // copy icon. showCopy={false} also hides the output Copy.
       showFormat // format icon, after the compiler loads. showFormat={false} hides it.
       showClear // output Clear. showClear={false} hides it.

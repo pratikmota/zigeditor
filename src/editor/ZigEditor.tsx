@@ -72,6 +72,7 @@ export function ZigEditor({
   actions,
   showCredit = true,
   labels: labelsProp,
+  onReset,
   onRunResult,
   onStatus,
 }: ZigEditorProps) {
@@ -290,7 +291,7 @@ export function ZigEditor({
         actions={actions}
         onRun={() => void handleRun()}
         onFormat={() => void handleFormat()}
-        onReset={() => onChange(resetValueRef.current)}
+        onReset={() => (onReset ? onReset() : onChange(resetValueRef.current))}
         onCopy={() => void handleCopy()}
       />
       <div className="zig-editor-pane">

@@ -114,8 +114,10 @@ export type ZigEditorProps = {
   matchSources?: string[];
   /** Shown on run results. Defaults to "Zig". */
   compilerLabel?: string;
-  /** Hide the package Reset button so the host can keep its own confirm. */
+  /** Hide the package Reset button. */
   showReset?: boolean;
+  /** When set, Reset stays in the toolbar and calls this instead of restoring the template. */
+  onReset?: () => void;
   showRun?: boolean;
   /** Hide Format even after the compiler probe succeeds. */
   showFormat?: boolean;
