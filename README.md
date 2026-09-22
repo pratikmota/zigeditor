@@ -4,13 +4,21 @@ React component that edits Zig and runs it in the browser. The npm package ships
 
 React and Next.js only. Render it from a client component. The worker is inside the package.
 
+## Look
+
+Playground keeps labeled buttons. Learn uses `compact` so the same controls are icons.
+
+![Playground toolbar and output](docs/playground.png)
+
+![Learn icon toolbar](docs/learn.png)
+
 ## Install
 
 ```bash
 pnpm add zigeditor
 ```
 
-Peer dependency: React 19.
+Peer dependency: React 19. Copy this into a client component. Every control is on. Use the comment on that line to hide it.
 
 ```tsx
 "use client";
@@ -19,13 +27,37 @@ import { useState } from "react";
 import { HELLO_ZIG_SOURCE, ZigEditor } from "zigeditor";
 import "zigeditor/styles.css";
 
+const versions = [
+  { id: "0.16.0", label: "Zig 0.16.0" },
+  { id: "master", label: "Zig master" },
+];
+
 export function Editor() {
   const [code, setCode] = useState(HELLO_ZIG_SOURCE);
+  const [version, setVersion] = useState(versions[0].id);
+
   return (
     <ZigEditor
       value={code}
       onChange={setCode}
+      theme="dark" // "light" | "dark" | "system". Default is system.
+      compact // icons with tooltips. Remove this line for labeled buttons.
+      versions={versions} // one entry stays a one-item menu
+      version={version}
+      onVersionChange={setVersion}
+      showRun // labeled Run. showRun={false} hides it.
+      showReset // reset icon. showReset={false} hides it.
+      showCopy // copy icon. showCopy={false} also hides the output Copy.
+      showFormat // format icon, after the compiler loads. showFormat={false} hides it.
+      showClear // output Clear. showClear={false} hides it.
+      showCredit // “Powered by ZigEditor”. showCredit={false} hides it.
+      newHref="/new" // plus icon, same tab. Omit to hide New.
+      reportHref="https://example.com/report" // flag icon, new tab. Omit to hide Report.
+      actions={[
+        { label: "Share", icon: "share", onClick: () => {} }, // share icon. Replace onClick. Delete this object to hide it.
+      ]}
       artifacts={{
+        // Same-origin files you host. See “Compiler files” below.
         moduleUrl: "/wasm/0.16.0/zig.wasm",
         stdUrl: "/wasm/0.16.0/std.tar.gz",
         compilerRtUrl: "/wasm/0.16.0/compiler_rt.a",
@@ -41,7 +73,7 @@ Import `zigeditor/styles.css` once. Hosts can override any `--ze-*` variable on 
 
 Two ways to point at a compiler:
 
-1. Pass `artifacts` with `moduleUrl`, `stdUrl`, and `compilerRtUrl`, as above. Same-origin hosting needs no CORS. ZigLab will use its own `/wasm/0.16.0/...` URLs and ignore the package default.
+1. Pass `artifacts` with `moduleUrl`, `stdUrl`, and `compilerRtUrl`, as above. Same-origin hosting needs no CORS.
 2. Omit `artifacts`. The package then uses `DEFAULT_ARTIFACT_BASE_URL` in `src/default-artifacts.ts`. That constant is an empty string until a real host exists, so callers must pass `artifacts`. When a CDN is live, set the constant to the version directory (trailing slash optional), rebuild, and publish the npm package:
 
 ```ts
