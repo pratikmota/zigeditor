@@ -7,6 +7,14 @@ export type ZigWasmArtifacts = {
   compilerRtUrl?: string;
 };
 
+export type RunRequest = {
+  code: string;
+  channel: string;
+  timeoutMs?: number;
+  matchSources?: string[];
+  expectedOutput?: string;
+};
+
 export type RunStatus =
   | "idle"
   | "loading"
@@ -50,6 +58,16 @@ export type ZigEditorLabels = {
   loading: string;
   unavailable: string;
 };
+
+export interface ExecutionAdapter {
+  id: string;
+  channel: string;
+  label: string;
+  status: () => RunStatus | Promise<RunStatus>;
+  run: (req: RunRequest) => Promise<RunResult>;
+  format?: (code: string) => Promise<FormatResult>;
+  dispose?: () => void | Promise<void>;
+}
 
 export type ZigEditorProps = {
   value: string;

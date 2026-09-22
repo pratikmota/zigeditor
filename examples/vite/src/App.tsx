@@ -1,15 +1,33 @@
 import { useState } from "react";
-import { HELLO_ZIG_SOURCE, ZigEditor, type RunResult } from "zigeditor";
+import { HELLO_ZIG_SOURCE, ZigEditor, type RunResult, type ZigWasmArtifacts } from "zigeditor";
 import "zigeditor/styles.css";
+
+const wasmBase = import.meta.env.VITE_ZIG_WASM;
+const artifacts: ZigWasmArtifacts | undefined = wasmBase
+  ? {
+      moduleUrl: `${wasmBase}/zig.wasm`,
+      stdUrl: `${wasmBase}/std.tar`,
+      compilerRtUrl: `${wasmBase}/libcompiler_rt.a`,
+    }
+  : undefined;
 
 export function App() {
   const [code, setCode] = useState(HELLO_ZIG_SOURCE);
   const [result, setResult] = useState<RunResult | null>(null);
+  const [forceMock] = useState(
+    () => new URLSearchParams(window.location.search).has("mock"),
+  );
+  const liveArtifacts = forceMock ? undefined : artifacts;
 
   return (
     <main style={{ maxWidth: 720, margin: "24px auto", padding: "0 16px" }}>
       <h1 style={{ fontFamily: "sans-serif", fontSize: 20 }}>ZigEditor</h1>
-      <ZigEditor value={code} onChange={setCode} onRunResult={setResult} />
+      <ZigEditor
+        value={code}
+        onChange={setCode}
+        onRunResult={setResult}
+        artifacts={liveArtifacts}
+      />
       <pre
         aria-label="Run result"
         style={{

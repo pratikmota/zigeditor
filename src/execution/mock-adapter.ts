@@ -1,14 +1,10 @@
 import { HELLO_ZIG_SOURCE, HELLO_ZIG_STDOUT } from "./hello";
-import type { RunResult } from "./types";
+import type { RunRequest, RunResult, RunStatus } from "./types";
 
 export const MOCK_PREVIEW_MESSAGE =
   "The in-browser Zig compiler could not load. This is a preview runner. Your code stays in this browser.";
 
-export type MockRunRequest = {
-  code: string;
-  expectedOutput?: string;
-  matchSources?: string[];
-};
+export type MockRunRequest = RunRequest;
 
 function normalizeWhitespace(code: string) {
   return code.replace(/\r\n/g, "\n").replace(/[ \t]+$/gm, "").trim();
@@ -21,13 +17,21 @@ function delay(ms: number) {
 }
 
 export class MockAdapter {
+  readonly id = "mock";
+  readonly channel = "default";
+  readonly label: string;
   readonly compilerLabel: string;
 
   constructor(compilerLabel: string) {
     this.compilerLabel = compilerLabel;
+    this.label = compilerLabel;
   }
 
-  async run(req: MockRunRequest): Promise<RunResult> {
+  status(): RunStatus {
+    return "unavailable";
+  }
+
+  async run(req: RunRequest): Promise<RunResult> {
     const waitMs = 400 + Math.floor(Math.random() * 401);
     await delay(waitMs);
 
