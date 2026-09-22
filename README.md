@@ -14,11 +14,24 @@ Playground keeps labeled buttons. Learn uses `compact` so the same controls are 
 
 ## Install
 
+`pnpm add zigeditor` works after this package is published to npm.
+
+Until then, build this repo and point the other app at that checkout:
+
 ```bash
-pnpm add zigeditor
+git clone https://github.com/pratikmota/zigeditor.git
+cd zigeditor
+pnpm install
+pnpm build
 ```
 
-Peer dependency: React 19. Copy this into a client component. Every control is on. Use the comment on that line to hide it.
+In the other app:
+
+```bash
+pnpm add ../zigeditor
+```
+
+`../zigeditor` is the path to that checkout. Peer dependencies: React 19 and `react-dom` 19. Copy this into a client component. Every control is on. Use the comment on that line to hide it.
 
 ```tsx
 "use client";
@@ -68,6 +81,10 @@ export function Editor() {
 ```
 
 Import `zigeditor/styles.css` once. Hosts can override any `--ze-*` variable on `.zig-editor`.
+
+## Demo
+
+From this repo, `pnpm dev` builds the package and starts the Vite demo in `examples/vite`. Without compiler files the demo uses the mock runner. For a real Hello World, copy `toolchain/publish/0.16.0` to `examples/vite/public/wasm/0.16.0`. Building those files is in [toolchain/README.md](toolchain/README.md).
 
 ## Compiler files
 
