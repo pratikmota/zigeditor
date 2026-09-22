@@ -80,7 +80,9 @@ export function Editor() {
 }
 ```
 
-Import `zigeditor/styles.css` once. Hosts can override any `--ze-*` variable on `.zig-editor`.
+Import `zigeditor/styles.css` once. A registry install resolves that file. A sibling `pnpm add ../zigeditor` does not, until the Next app sets `turbopack.root` to a directory that contains both checkouts. Hosts can override any `--ze-*` variable on `.zig-editor`.
+
+Hosts that set a Content-Security-Policy need `worker-src 'self' blob:` and `wasm-unsafe-eval` on `script-src`.
 
 ## Demo
 
