@@ -12,6 +12,13 @@ Playground keeps labeled buttons. Learn uses `compact` so the same controls are 
 
 ![Learn icon toolbar](docs/learn.png)
 
+video:
+
+
+https://github.com/user-attachments/assets/f900cfcd-0f19-4d94-97e7-f64624504b00
+
+
+
 ## Install
 
 `pnpm add zigeditor` works after this package is published to npm.
